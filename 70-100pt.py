@@ -52,13 +52,37 @@ class myApp(object):
         drawpad.after(5,self.animate)
 
     def key(self,event):
+        px1,py1,px2,py2 = drawpad.coords(player)
+	
         global player
         if event.char == "w":
             drawpad.move(player,0,-4)
+            if px1 > 780:
+                drawpad.move(player,0,4)
+
+        global player
+        if event.char == "s":
+            drawpad.move(player,0,4)
+            if py1 < 20:
+                drawpad.move (player, 0,-4)
+                
+        global player
+        if event.char == "a":
+            drawpad.move(player,-4,0)
+            if py1 > 20:
+                drawpad.move(player,4,0)
+
+        global player
+        if event.char == "d":
+            drawpad.move(player,4,0)
+            if px1 < 580:
+                drawpad.move(player,-4,0)
+                
         
     def collisionDetect(self,rocket):
         rx1,ry1,rx2,ry2 = drawpad.coords(rocket)
         
+            
 
 app = myApp(root)
 root.mainloop()
