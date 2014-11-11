@@ -9,11 +9,14 @@
 from Tkinter import *
 root = Tk()
 drawpad = Canvas(root, width=800,height=600, background='white')
-player = drawpad.create_oval(390,580,410,600, fill="blue")
+x1 = 390
+x2 = 410
+y1 = 580
+y2 = 600
+player = drawpad.create_oval(x1,y1,x2,y2, fill="blue")
 enemy = drawpad.create_rectangle(50,50,100,60, fill="red")
-
 direction = 5
-
+direction1 = 5
 class myApp(object):
     def __init__(self, parent):
         
@@ -38,7 +41,6 @@ class myApp(object):
         drawpad.pack()
         root.bind_all('<Key>', self.key)
         self.animate()
-    
     def animate(self):
         global drawpad
         global enemy
@@ -52,37 +54,24 @@ class myApp(object):
         drawpad.after(5,self.animate)
 
     def key(self,event):
-        px1,py1,px2,py2 = drawpad.coords(player)
-	
         global player
+        global direction1
+        x1,y1,x2,y2 = drawpad.coords(player)
         if event.char == "w":
-            drawpad.move(player,0,-4)
-            if px1 > 780:
-                drawpad.move(player,0,4)
-
-        global player
-        if event.char == "s":
-            drawpad.move(player,0,4)
-            if py1 < 20:
-                drawpad.move (player, 0,-4)
-                
-        global player
+             if y2 > 10:
+                drawpad.move(player,0,-direction1)
         if event.char == "a":
-            drawpad.move(player,-4,0)
-            if py1 > 20:
-                drawpad.move(player,4,0)
-
-        global player
+             if x2 > 10:
+                drawpad.move(player,-direction1,0)
         if event.char == "d":
-            drawpad.move(player,4,0)
-            if px1 < 580:
-                drawpad.move(player,-4,0)
-                
-        
+             if x1 < 790:
+                drawpad.move(player,direction1,0)
+        if event.char == "s":
+             if y1 < 590:
+                drawpad.move(player,0,direction1)
     def collisionDetect(self,rocket):
         rx1,ry1,rx2,ry2 = drawpad.coords(rocket)
         
-            
 
 app = myApp(root)
 root.mainloop()
